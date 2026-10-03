@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d1410">
+<title>Patrik „Popi“ Lukáč | Budimírska Heligónka</title>
+<meta name="description" content="Patrik Lukáč – slovenský heligonkár. Moderný folklór, fotky, videá, vystúpenia a kontakt.">
+<!--
+  PRIEČINKY (rovnaké ako doteraz):
+  images/  → obrazokpozadia.png, logo, fotka1.jpg …, video-thumb1.jpg …
+  videos/  → video1.mp4 …
+  Fotky, videá a termíny pridávaš dole v <script> (blok „TU PRIDÁVAJ SVOJ OBSAH“).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..700&family=Manrope:wght@400..800&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --ink:#1d1410;--ink2:#2b1e17;--cream:#f5ecd9;--paper:#ead9b6;
+  --red:#c9362b;--blue:#1b6a8a;--gold:#e3a72f;--muted:rgba(245,236,217,.74);
+  --nav:68px;--max:1160px;
+  --face:10%; /* fotka v „O mne“: 0% = vľavo, 100% = vpravo (aby bola osoba v strede výrezu) */
+  /* výšivkový pás: kosoštvorce + bodky */
+  --tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='22'%3E%3Cpath d='M14 1l10 10-10 10L4 11z' fill='%23c9362b'/%3E%3Cpath d='M14 7l4 4-4 4-4-4z' fill='%23f5ecd9'/%3E%3Ccircle cy='11' r='2.4' fill='%231b6a8a'/%3E%3Ccircle cx='28' cy='11' r='2.4' fill='%231b6a8a'/%3E%3C/svg%3E");
+  --tile2:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='22'%3E%3Cpath d='M14 1l10 10-10 10L4 11z' fill='%23f5ecd9'/%3E%3Cpath d='M14 7l4 4-4 4-4-4z' fill='%23c9362b'/%3E%3Ccircle cy='11' r='2.4' fill='%23e3a72f'/%3E%3Ccircle cx='28' cy='11' r='2.4' fill='%23e3a72f'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--ink);scroll-padding-top:var(--nav);-webkit-text-size-adjust:100%}
+body{margin:0;font:400 1.05rem/1.7 Manrope,system-ui,sans-serif;color:var(--cream);background:var(--ink);overflow-x:hidden;overflow-x:clip}
+img,video,iframe{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:Fraunces,Georgia,serif;line-height:1.1;text-wrap:balance}
+h2{font-size:clamp(2.1rem,6vw,3.5rem);font-weight:700;margin-bottom:34px}
+h2::after{content:"";display:block;width:130px;height:14px;margin-top:14px;background:var(--tile) repeat-x left/auto 14px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+section,footer{position:relative}
+section{padding:calc(clamp(56px,9vw,104px) + 22px) max(20px,env(safe-area-inset-left),env(safe-area-inset-right)) clamp(56px,9vw,104px)}
+section::before,footer::before{content:"";position:absolute;inset:0 0 auto;height:22px;background:var(--tile) repeat-x 0 0/auto 22px}
+.wrap{max-width:var(--max);margin:0 auto}
+
+/* NAVIGÁCIA */
+nav{position:fixed;inset:0 0 auto;z-index:50;height:calc(var(--nav) + env(safe-area-inset-top));padding:env(safe-area-inset-top) max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(29,20,16,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:2px solid var(--red)}
+.brand{font-weight:800;font-size:1.05rem;text-decoration:none;white-space:nowrap}
+.brand em{font:400 1.2em Pacifico,cursive;color:var(--gold)}
+.links{display:flex;gap:4px;margin:0;padding:0;list-style:none}
+.links a{display:block;padding:10px 14px;border-radius:99px;font-weight:600;font-size:.95rem;text-decoration:none}
+.links a:hover{background:rgba(245,236,217,.12)}
+#tg{display:none;width:46px;height:46px;border:2px solid var(--cream);border-radius:14px;background:none;color:var(--cream);font-size:1.15rem;cursor:pointer}
+@media(max-width:860px){
+  #tg{display:block}
+  .links{display:none;position:absolute;top:100%;left:12px;right:12px;margin-top:8px;padding:8px;flex-direction:column;background:var(--ink2);border:2px solid var(--red);border-radius:18px}
+  .links.open{display:flex}
+  .links a{padding:14px}
+}
+
+/* HERO – pozadie vždy vyplní celú obrazovku (cover), bez deformácie */
+#hero{min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;padding:calc(var(--nav) + env(safe-area-inset-top) + 36px) max(20px,env(safe-area-inset-left),env(safe-area-inset-right)) 70px;overflow:hidden;isolation:isolate;background:var(--ink)}
+#hero::before{display:block;inset:-5%;height:auto;z-index:-2;background:url("./images/obrazokpozadia.png") center top/cover no-repeat}
+#hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(29,20,16,.5),rgba(29,20,16,.7) 55%,var(--ink))}
+.notes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.notes span{position:absolute;bottom:-6%;font-size:2rem;color:var(--gold);opacity:0}
+.hero-in{max-width:880px;position:relative;z-index:1}
+.logo{width:clamp(150px,36vw,250px);aspect-ratio:1;margin:0 auto 30px;border-radius:50%;object-fit:cover;border:6px solid var(--cream);box-shadow:0 0 0 4px var(--red),0 0 0 8px var(--cream),0 0 0 11px var(--blue),0 26px 60px rgba(0,0,0,.5)}
+#hero h1{font-size:clamp(2.3rem,9vw,5.2rem);font-weight:800;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+#hero h1 em{font:400 .88em Pacifico,cursive;color:var(--gold)}
+.sub{margin:10px 0 0;font-size:1.1rem;font-weight:600;color:var(--gold)}
+blockquote{max-width:24em;margin:30px auto 0;padding:20px 24px;border:1px solid rgba(245,236,217,.28);border-radius:20px;background:rgba(29,20,16,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font:italic 500 clamp(1.25rem,3.6vw,1.9rem)/1.35 Fraunces,Georgia,serif}
+blockquote cite{display:block;margin-top:10px;font:600 .95rem Manrope,sans-serif;font-style:normal;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:48px;padding:12px 26px;border:2px solid var(--red);border-radius:99px;background:var(--red);color:#fff;font-weight:700;text-decoration:none;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#b02c22}
+.btn.alt{background:transparent;border-color:var(--cream);color:var(--cream)}
+.btn.alt:hover{background:rgba(245,236,217,.14)}
+.btn.light{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.btn.light:hover{background:#fff}
+
+/* O MNE */
+#about{background:var(--cream);color:var(--ink)}
+#about .wrap{display:grid;gap:clamp(32px,6vw,72px);align-items:center}
+.arch{width:100%;max-width:440px;margin:0 auto;aspect-ratio:4/5;padding:10px;border:3px solid var(--red);border-radius:220px 220px 16px 16px;box-shadow:0 0 0 8px var(--cream),0 0 0 11px var(--blue)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:var(--face) center;border-radius:200px 200px 8px 8px}
+#about p{margin:0 0 1em;max-width:62ch;font:500 clamp(1.2rem,2.4vw,1.5rem)/1.5 Fraunces,Georgia,serif}
+@media(min-width:860px){#about .wrap{grid-template-columns:5fr 6fr}}
+
+/* GALÉRIA – všetky dlaždice sú rovnako veľké. Pomer strán zmeníš v --ratio (napr. 4/3 = širšie, 4/5 = vyššie) */
+#grid{--ratio:1/1;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){#grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1000px){#grid{grid-template-columns:repeat(4,1fr)}}
+.ph{position:relative;display:block;width:100%;min-width:0;aspect-ratio:var(--ratio);padding:0;overflow:hidden;border:2px solid rgba(245,236,217,.2);border-radius:14px;background:var(--ink2);cursor:zoom-in;transition:border-color .3s,box-shadow .3s,transform .3s}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;opacity:0;transition:opacity .6s,transform .6s}
+.ph.ok img{opacity:1}
+.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(245,236,217,.12) 50%,transparent 70%) 0 0/200% 100%}
+.ph.ok::before{display:none}
+.ph::after{content:"\f00e";font:900 1.5rem/1 "Font Awesome 6 Free";position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:rgba(29,20,16,.45);opacity:0;transition:opacity .3s}
+.ph:hover{border-color:var(--gold);box-shadow:0 10px 30px rgba(0,0,0,.45);transform:translateY(-4px)}
+.ph:hover img{transform:scale(1.08)}
+.ph:hover::after{opacity:1}
+
+/* VIDEÁ */
+#videos{background:var(--paper);color:var(--ink)}
+#vgrid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:start}
+.vcard{overflow:hidden;border:3px solid var(--ink);border-radius:16px;background:var(--ink);color:var(--cream)}
+.vcard{transition:transform .35s,box-shadow .35s}
+.vcard:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(29,20,16,.4)}
+.vbox{position:relative;overflow:hidden;background:#000}
+.vcard video,.vcard iframe{width:100%;aspect-ratio:16/9;border:0;object-fit:cover}
+.vcard video{transition:transform .6s}
+.vcard:not(.on):hover video{transform:scale(1.05)}
+.vplay{position:absolute;inset:0;display:grid;place-items:center;width:100%;height:100%;padding:0;border:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.5));color:#fff;cursor:pointer}
+.vplay i{display:grid;place-items:center;width:72px;height:72px;padding-left:5px;border-radius:50%;background:var(--red);font-size:1.5rem;transition:transform .3s}
+.vplay:hover i{transform:scale(1.12)}
+.vcard.on .vplay{display:none}
+.vcard p{margin:0;padding:12px 16px;font-weight:600}
+
+/* VYSTÚPENIA */
+#events{background:var(--ink2)}
+.ev{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.ev li{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:14px 18px 14px 14px;border:2px solid rgba(245,236,217,.2);border-radius:16px}
+.ev .d{display:grid;place-items:center;min-width:76px;padding:10px 8px;border-radius:12px;background:var(--red);color:#fff;font:700 1.9rem/1 Fraunces,Georgia,serif;text-align:center}
+.ev .d small{margin-top:4px;font:600 .75rem/1.2 Manrope,sans-serif}
+.ev h3{font-size:1.25rem}
+.ev p{margin:2px 0 0;color:var(--muted)}
+.ev .past{opacity:.6}
+.ev .past .d{background:var(--blue)}
+.ev li.empty{display:block;text-align:center;border-style:dashed;color:var(--muted)}
+details{margin-top:28px}
+summary{padding:14px 0;color:var(--gold);font-weight:700;cursor:pointer}
+
+/* KONTAKT */
+#contact{background:var(--red);color:#fff;text-align:center}
+#contact::before{background-image:var(--tile2)}
+#contact h2::after{margin-inline:auto;background-image:var(--tile2)}
+#contact p{max-width:34em;margin:0 auto 28px;font-size:1.15rem}
+.soc{display:flex;justify-content:center;gap:12px;margin-top:28px}
+.soc a{display:grid;place-items:center;width:52px;height:52px;border:2px solid var(--cream);border-radius:50%;font-size:1.3rem;text-decoration:none;transition:background .2s,color .2s}
+.soc a:hover{background:var(--cream);color:var(--red)}
+footer{padding:50px 20px calc(28px + env(safe-area-inset-bottom));text-align:center;color:var(--muted);font-size:.9rem}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:16px 12px;background:rgba(10,6,4,.95)}
+.lb.on{display:grid}
+.lb img{max-width:100%;max-height:82vh;max-height:82svh;border-radius:10px;object-fit:contain}
+.lb button{position:absolute;width:48px;height:48px;border:2px solid var(--cream);border-radius:50%;background:rgba(29,20,16,.7);color:var(--cream);font-size:1.1rem;cursor:pointer}
+.lb .x{top:max(14px,env(safe-area-inset-top));right:14px}
+.lb .p,.lb .n{top:50%;transform:translateY(-50%)}
+.lb .p{left:14px}.lb .n{right:14px}
+@media(max-width:640px){.lb .p,.lb .n{top:auto;bottom:max(20px,env(safe-area-inset-bottom));transform:none}}
+
+/* POHYB – všetko sa vypína podľa nastavenia systému (prefers-reduced-motion) */
+@keyframes rise{from{opacity:0;transform:translateY(24px);filter:blur(10px)}}
+@keyframes rv{from{opacity:0;transform:translateY(38px) scale(.96)}}
+@keyframes bar{from{width:0}}
+@keyframes sk{to{background-position:-200% 0}}
+@keyframes shine{to{background-position:-200% 0}}
+@keyframes flt{50%{transform:translateY(-10px)}}
+@keyframes kb{to{transform:scale(1.14) translateY(-2%)}}
+@keyframes note{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.45}100%{transform:translateY(-85vh) rotate(24deg);opacity:0}}
+@keyframes pulse{from{box-shadow:0 0 0 0 rgba(201,54,43,.55)}to{box-shadow:0 0 0 22px rgba(201,54,43,0)}}
+@keyframes stitch{to{background-position-x:560px}}
+@keyframes ring{0%,80%,100%{transform:rotate(0)}85%,95%{transform:rotate(-18deg)}90%{transform:rotate(18deg)}}
+@keyframes lbin{from{opacity:0;transform:scale(.94)}}
+nav::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:linear-gradient(90deg,var(--gold),var(--red),var(--blue));transform-origin:left;transform:scaleX(var(--p,0))}
+@media(prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .hero-in>*{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+  .hero-in>:nth-child(2){animation-delay:.1s}.hero-in>:nth-child(3){animation-delay:.18s}
+  .hero-in>:nth-child(4){animation-delay:.28s}.hero-in>:nth-child(5){animation-delay:.38s}
+  .hero-in>.logo{animation:rise .9s cubic-bezier(.2,.8,.2,1) both,flt 6s ease-in-out 1s infinite}
+  #hero::before{animation:kb 26s ease-in-out infinite alternate}
+  section::before,footer::before{animation:stitch 40s linear infinite}
+  #hero h1 em{background:linear-gradient(100deg,#e3a72f 35%,#fff0b5 50%,#e3a72f 65%) 0 0/200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;animation:shine 4.5s linear infinite}
+  .notes span{animation:note 14s linear infinite}
+  .notes span:nth-child(1){left:8%}.notes span:nth-child(2){left:24%;animation-delay:3s;font-size:2.6rem}
+  .notes span:nth-child(3){left:46%;animation-delay:6s}.notes span:nth-child(4){left:68%;animation-delay:9s;font-size:2.4rem}
+  .notes span:nth-child(5){left:88%;animation-delay:11s}
+  .btn{position:relative;overflow:hidden}
+  .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-120%)}
+  .btn:hover::after{transform:translateX(120%);transition:transform .7s}
+  .btn:not(.alt):not(.light){animation:pulse 2.6s infinite}
+  .btn.light .fa-phone{animation:ring 4s infinite}
+  .anim .rv:not(.in){opacity:0}
+  .rv.in{animation:rv .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:var(--d,0s)}
+  h2.in::after{animation:bar 1s .4s cubic-bezier(.2,.8,.2,1) backwards}
+  .ph::before{animation:sk 1.4s linear infinite}
+  .ev li{transition:transform .3s,border-color .3s,background .3s}
+  .ev li:not(.empty):hover{transform:translateX(8px);border-color:var(--gold);background:rgba(245,236,217,.05)}
+  .ev .next .d{animation:pulse 2s infinite}
+  .vplay i{animation:pulse 2.2s infinite}
+  .soc a{transition:transform .3s,background .2s,color .2s}.soc a:hover{transform:translateY(-5px) rotate(-8deg)}
+  .lb.on{animation:lbin .3s}.lb img{animation:lbin .4s}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#hero">Patrik <em>„Popi“</em> Lukáč</a>
+  <ul class="links">
+    <li><a href="#about">O mne</a></li>
+    <li><a href="#gallery">Galéria</a></li>
+    <li><a href="#videos">Videá</a></li>
+    <li><a href="#events">Vystúpenia</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+  <button id="tg" type="button" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO: pozadie = images/obrazokpozadia.png (zmeníš v CSS pri #hero::before), logo = obrázok nižšie -->
+<section id="hero">
+  <div class="notes" aria-hidden="true"><span>♪</span><span>♫</span><span>♪</span><span>♫</span><span>♪</span></div>
+  <div class="hero-in">
+    <img class="logo" src="./images/dba92d97-7542-4f7c-ab05-4e6715a4a4ca.jpg" alt="Logo Patrik Lukáč" width="250" height="250"><!-- ▼ TU JE LOGO -->
+    <h1>Patrik <em>„Popi“</em> Lukáč</h1>
+    <p class="sub">Heligonkár</p>
+    <blockquote>„Kde slová zlyhajú, hudba prehovorí.“<cite>Hans Christian Andersen</cite></blockquote>
+    <div class="cta">
+      <a class="btn" href="#videos"><i class="fas fa-play"></i> Pozrieť videá</a>
+      <a class="btn alt" href="#contact">Ozvať sa</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="arch">
+      <!-- ▼ TU JE FOTKA „O MNE“ (výrez nastavíš premennou --face hore v CSS) -->
+      <img src="./images/483612650_666418239262093_7195675523624622474_n.jpg" alt="Patrik Lukáč s heligonkou" loading="lazy">
+    </div>
+    <div>
+      <h2>Patrik Lukáč</h2>
+      <p class="lead">Patrik Lukáč je známy slovenský heligonkár, preslávený svojou virtuóznosťou a interpretáciou tradičnej slovenskej hudby. Jeho hra na heligonke spája folklórne prvky s moderným prístupom, čím prispieva k popularizácii tohto nástroja.</p>
+      <p>Patrik pôsobí ako významná postava slovenskej tradičnej hudby, najmä v oblasti heligonky. Okrem samotnej hry sa venuje aj šíreniu povedomia o heligonke, ktorá má v slovenskej kultúre dlhú tradíciu. Často vystupuje na kultúrnych podujatiach a festivaloch, kde predstavuje vlastné úpravy známych piesní aj originálne skladby.</p>
+      <p>Jeho štýl kombinuje klasické folklórne prvky s modernými prvkami, čo oslovuje široké publikum. Okrem koncertnej činnosti sa Patrik Lukáč aktívne podieľa na vzdelávaní mladých hudobníkov, ktorým odovzdáva svoje skúsenosti a znalosti. Jeho videá sú dostupné na Instagramovom účte <strong>lukac_pato</strong> a na Facebookovej stránke <strong>Patrik Lukáč</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <h2>Galéria</h2>
+    <div id="grid"><!-- fotky sa načítajú zo zoznamu PHOTOS v skripte nižšie --></div>
+  </div>
+</section>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="x" type="button" aria-label="Zavrieť"><i class="fas fa-xmark"></i></button>
+  <button class="p" type="button" aria-label="Predchádzajúca"><i class="fas fa-chevron-left"></i></button>
+  <img src="" alt="Fotografia z galérie">
+  <button class="n" type="button" aria-label="Nasledujúca"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<section id="videos">
+  <div class="wrap">
+    <h2>Videá</h2>
+    <div id="vgrid"><!-- videá sa načítajú zo zoznamu VIDEOS v skripte nižšie --></div>
+  </div>
+</section>
+
+<section id="events">
+  <div class="wrap">
+    <h2>Vystúpenia</h2>
+    <ul class="ev" id="up"></ul>
+    <details id="pastbox"><summary>Odohrané vystúpenia</summary><ul class="ev" id="past"></ul></details>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Kontakt</h2>
+    <p>Chcete heligonku na svadbe, oslave či obecnej slávnosti? Napíšte alebo zavolajte.</p>
+    <div class="cta">
+      <a class="btn light" href="mailto:patluk121@gmail.com"><i class="fas fa-envelope"></i> patluk121@gmail.com</a>
+      <a class="btn light" href="tel:+421949266599"><i class="fas fa-phone"></i> +421 949 266 599</a>
+    </div>
+    <div class="soc">
+      <a href="https://www.facebook.com/profile.php?id=100076817678641&locale=sk_SK" target="_blank" rel="noopener noreferrer" aria-label="Facebook Patrika Lukáča"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/lukac_pato" target="_blank" rel="noopener noreferrer" aria-label="Instagram Patrika Lukáča"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Patrik Lukáč</footer>
+
+<script>
+/* ======================================================================
+   ▼▼▼  TU PRIDÁVAJ SVOJ OBSAH  ▼▼▼
+   1) FOTKY: nahraj súbor do priečinka images/ a pridaj jeho názov do PHOTOS.
+   2) VIDEÁ: súbor do videos/ (náhľadový obrázok do images/) a riadok do VIDEOS.
+             Alebo YouTube: { yt:'ID_VIDEA', title:'Názov' }
+   3) VYSTÚPENIA: do EVENTS pridaj riadok  {d:'RRRR-MM-DD',t:'Názov',p:'Miesto'},  – budúce sa ukážu hore, minulé v „Odohrané vystúpenia“.
+   Súbory, ktoré neexistujú, sa na stránke automaticky skryjú – nič sa nerozbije.
+   ====================================================================== */
+const PHOTOS=[
+  'fotka1.jpg','fotka2.jpg','fotka3.jpg','fotka4.jpg','fotka5.jpg','fotka6.jpg','fotka7.jpg','fotka8.jpg',
+  'fotka9.jpg','fotka10.jpg','fotka11.jpg','fotka12.jpg','fotka13.jpg','fotka14.jpg','fotka15.jpg','fotka16.jpg',
+  /* voľné miesta pre ďalšie fotky – stačí nahrať fotka17.jpg … fotka24.jpg do images/ */
+  'fotka17.jpg','fotka18.jpg','fotka19.jpg','fotka20.jpg','fotka21.jpg','fotka22.jpg','fotka23.jpg','fotka24.jpg'
+];
+const VIDEOS=[
+  {src:'video1.mp4',poster:'video-thumb1.jpg',title:''},   /* title = popisok pod videom (nepovinné) */
+  {src:'video2.mp4',poster:'video-thumb2.jpg',title:''},
+  {src:'video3.mp4',poster:'video-thumb3.jpg',title:''},
+  {src:'video4.mp4',poster:'video-thumb4.jpg',title:''},
+  {src:'video5.mp4',poster:'video-thumb5.jpg',title:''},
+  {src:'video6.mp4',poster:'video-thumb6.jpg',title:''}
+  /* YouTube príklad:  ,{yt:'ID_VIDEA',title:'Názov videa'} */
+];
+const EVENTS=[
+  /* nový termín pridáš takto:  {d:'2026-11-14',t:'Svadba',p:'Miesto'},  */
+  {d:'2025-09-07',t:'Dni obce',p:'Zlatá Baňa'},
+  {d:'2025-09-20',t:'Svadba',p:'Oravský Háj'},
+  {d:'2025-10-11',t:'Svadba',p:'Biele Studničky'},
+  {d:'2025-10-18',t:'Margecianske Fajnoty',p:''},
+  {d:'2025-10-25',t:'Oslava',p:'Rozhanovce'}
+];
+/* ▲▲▲  KONIEC OBSAHU – nižšie už nič meniť netreba  ▲▲▲ */
+
+const IMG='./images/',VID='./videos/',$=s=>document.querySelector(s),mk=t=>document.createElement(t);
+
+/* menu */
+const links=$('.links'),tg=$('#tg');
+const setMenu=o=>{links.classList.toggle('open',o);tg.setAttribute('aria-expanded',o);tg.firstChild.className=o?'fas fa-xmark':'fas fa-bars'};
+tg.onclick=()=>setMenu(!links.classList.contains('open'));
+links.onclick=e=>{if(e.target.closest('a'))setMenu(false)};
+
+/* galéria */
+const grid=$('#grid');
+PHOTOS.forEach((f,n)=>{
+  const b=mk('button'),i=new Image();
+  b.type='button';b.className='ph';b.setAttribute('aria-label','Zväčšiť fotku '+(n+1));
+  i.loading='lazy';i.alt='Fotografia z galérie';i.onload=()=>b.classList.add('ok');i.onerror=()=>b.remove();i.src=IMG+f;
+  b.append(i);grid.append(b);
+});
+
+/* lightbox */
+const lb=$('#lb'),lbi=lb.querySelector('img');let k=0;
+const imgs=()=>[...grid.querySelectorAll('img')];
+const show=n=>{const a=imgs();k=(n+a.length)%a.length;lbi.style.animation='none';void lbi.offsetWidth;lbi.style.animation='';lbi.src=a[k].src};
+const closeLb=()=>{lb.classList.remove('on');document.body.style.overflow=''};
+grid.onclick=e=>{const b=e.target.closest('.ph');if(!b)return;show(imgs().indexOf(b.firstChild));lb.classList.add('on');document.body.style.overflow='hidden';lb.querySelector('.x').focus()};
+lb.onclick=e=>{if(e.target===lb||e.target.closest('.x'))closeLb();else if(e.target.closest('.n'))show(k+1);else if(e.target.closest('.p'))show(k-1)};
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')show(k+1);if(e.key==='ArrowLeft')show(k-1)});
+let sx=0;lb.ontouchstart=e=>{sx=e.changedTouches[0].clientX};
+lb.ontouchend=e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50)show(k+(d<0?1:-1))};
+
+/* videá */
+const vg=$('#vgrid');
+VIDEOS.forEach(v=>{
+  const c=mk('div'),b=mk('div'),m=v.yt?mk('iframe'):mk('video');
+  c.className='vcard';b.className='vbox';
+  if(v.yt){m.src='https://www.youtube-nocookie.com/embed/'+v.yt;m.allowFullscreen=true;m.loading='lazy';m.title=v.title||'Video';b.append(m)}
+  else{
+    m.playsInline=true;m.preload='metadata';m.src=VID+v.src+'#t=0.1'; /* #t=0.1 = ako náhľad sa zobrazí snímka z videa */
+    m.onerror=()=>c.remove();
+    if(v.poster){const t=new Image();t.onload=()=>m.poster=IMG+v.poster;t.src=IMG+v.poster} /* vlastný náhľad, ak súbor existuje */
+    m.onloadedmetadata=()=>{m.style.aspectRatio=Math.min(Math.max(m.videoWidth/m.videoHeight,.8),16/9)}; /* zvislé videá bez čiernych pásov */
+    const p=mk('button');p.type='button';p.className='vplay';p.setAttribute('aria-label','Prehrať video');p.innerHTML='<i class="fas fa-play"></i>';
+    p.onclick=()=>{m.currentTime=0;m.controls=true;m.play()};
+    m.onplay=()=>{c.classList.add('on');m.controls=true;vg.querySelectorAll('video').forEach(o=>o!==m&&o.pause())};
+    m.onended=()=>{c.classList.remove('on');m.controls=false;m.currentTime=0};
+    b.append(m,p);
+  }
+  c.append(b);
+  if(v.title){const p=mk('p');p.textContent=v.title;c.append(p)}
+  vg.append(c);
+});
+
+/* vystúpenia */
+const T=new Date();T.setHours(0,0,0,0);
+const MON=['jan','feb','mar','apr','máj','jún','júl','aug','sep','okt','nov','dec'];
+const when=e=>new Date(e.d+'T00:00:00');
+const row=(e,past,next)=>{const d=when(e);return `<li${past?' class="past"':next?' class="next"':''}><div class="d">${d.getDate()}<small>${MON[d.getMonth()]} ${d.getFullYear()}</small></div><div><h3>${e.t}</h3>${e.p?`<p>${e.p}</p>`:''}</div></li>`};
+const all=[...EVENTS].sort((a,b)=>a.d.localeCompare(b.d));
+const up=all.filter(e=>when(e)>=T),past=all.filter(e=>when(e)<T).reverse();
+$('#up').innerHTML=up.length?up.map((e,i)=>row(e,0,!i)).join(''):'<li class="empty">Nové termíny pripravujeme. Sledujte ma na Facebooku a Instagrame.</li>';
+$('#past').innerHTML=past.map(e=>row(e,1)).join('');
+$('#pastbox').hidden=!past.length;
+
+/* ukazovateľ scrollu + animácie pri posúvaní (vypnuté pri „znížený pohyb“) */
+const nv=$('nav');
+addEventListener('scroll',()=>nv.style.setProperty('--p',scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)),{passive:true});
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches&&'IntersectionObserver'in window){
+  document.documentElement.classList.add('anim');
+  const io=new IntersectionObserver(es=>es.filter(e=>e.isIntersecting).sort((a,b)=>a.target.compareDocumentPosition(b.target)&2?1:-1).forEach((e,i)=>{e.target.style.setProperty('--d',Math.min(i,7)*.09+'s');e.target.classList.add('in');io.unobserve(e.target)}),{threshold:.1,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('section:not(#hero) h2,.arch,#about p,.ph,.vcard,.ev li,#contact p,#contact .cta a,.soc a').forEach(el=>{el.classList.add('rv');io.observe(el)});
+}
+</script>
+</body>
+</html>
